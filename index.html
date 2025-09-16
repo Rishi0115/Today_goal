@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Focus on Today</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Style+Script&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li id="nav-home" class="active">Home</li>
+        <li id="nav-about">About</li>
+      </ul>
+    </nav>
+    <main>
+      <h1 class="title">Focus on <span>Today</span></h1>
+      <p class="about-site">
+        <strong>About this site:</strong> <br>
+        <em>Focus on Today</em> is a simple and effective tool to help you set, track, and complete your daily goals. Stay motivated, organized, and productive by focusing on what matters most—one day at a time!
+      </p>
+      <div class="app-container">
+        <h2 class="subtitle">
+          <span>Today Goals</span>
+        </h2>
+        <p class="progress-label">Raise the bar by completing your goals!</p>
+        <div class="progress-bar">
+          <div class="progress-value">
+            <span>0/3 Completed</span>
+          </div>
+          <p class="error-label">Please set all the goals!</p>
+        </div>
+
+        <div class="goal-list">
+          <div class="goal-container">
+            <div class="custom-checkbox"></div>
+            <input class="goal-input" type="text" placeholder="Add new goal... " />
+            <span class="goal-timer"></span>
+            <button class="remove-goal" title="Remove goal">✖</button>
+          </div>
+          <div class="goal-container">
+            <div class="custom-checkbox"></div>
+            <input class="goal-input" type="text" placeholder="Add new goal... " />
+            <span class="goal-timer"></span>
+            <button class="remove-goal" title="Remove goal">✖</button>
+          </div>
+          <div class="goal-container">
+            <div class="custom-checkbox"></div>
+            <input class="goal-input" type="text" placeholder="Add new goal... " />
+            <span class="goal-timer"></span>
+            <button class="remove-goal" title="Remove goal">✖</button>
+          </div>
+        </div>
+        <button class="add-goal">+ Add New Goal</button>
+
+        <p class="quote">“Move one step ahead, today!”</p>
+        <p class="made-with">Made with ❤️ by Rishi </p>
+      </div>
+    </main>
+  </body>
+</html>
