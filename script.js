@@ -20,7 +20,33 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Goal logic with countdown
+// --- Goal logic with countdown and persistence ---
+
+const GOALS_KEY = 'focus_today_goals';
+
+function saveGoalsToStorage() {
+  const goals = [];
+  document.querySelectorAll('.goal-container').forEach((gc, i) => {
+    const input = gc.querySelector('.goal-input');
+    const completed = gc.classList.contains('completed');
+    goals.push({
+      text: input.value,
+      completed
+    });
+  });
+  localStorage.setItem(GOALS_KEY, JSON.stringify(goals));
+}
+
+function loadGoalsFromStorage() {
+  const data = localStorage.getItem(GOALS_KEY);
+  if (!data) return [];
+  try {
+    return JSON.parse(data);
+  } catch {
+    return [];
+  }
+}
+
 function updateProgress() {
   const checkBoxList = document.querySelectorAll('.custom-checkbox');
   const inputFields = document.querySelectorAll('.goal-input');
@@ -109,6 +135,7 @@ function attachGoalEvents(goalContainer, idx) {
         goalContainer.classList.toggle('completed');
         progressBar.classList.remove('show-error');
         updateProgress();
+        saveGoalsToStorage();
         if (goalContainer.classList.contains('completed')) {
           if (timerSpan._interval) clearInterval(timerSpan._interval);
         } else {
@@ -139,6 +166,7 @@ function attachGoalEvents(goalContainer, idx) {
         startCountdown(goalContainer, idx);
       }
     }
+    saveGoalsToStorage();
   });
 
   removeBtn.addEventListener('click', () => {
@@ -146,19 +174,21 @@ function attachGoalEvents(goalContainer, idx) {
     goalContainer.remove();
     removeGoalTimer(idx);
     updateProgress();
+    saveGoalsToStorage();
     document.querySelectorAll('.goal-container').forEach((gc, i) => attachGoalEvents(gc, i));
   });
 
   return goalContainer;
 }
 
-function addGoal() {
+function addGoal(goalData = { text: '', completed: false }) {
   const goalList = document.querySelector('.goal-list');
   const goalContainer = document.createElement('div');
   goalContainer.className = 'goal-container';
+  if (goalData.completed) goalContainer.classList.add('completed');
   goalContainer.innerHTML = `
     <div class="custom-checkbox"></div>
-    <input class="goal-input" type="text" placeholder="Add new goal... " />
+    <input class="goal-input" type="text" placeholder="Add new goal... " value="${goalData.text.replace(/"/g, '&quot;')}" />
     <span class="goal-timer"></span>
     <button class="remove-goal" title="Remove goal">✖</button>
   `;
@@ -168,14 +198,18 @@ function addGoal() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.goal-container').forEach((gc, i) => {
-    if (!gc.querySelector('.goal-timer')) {
-      const timerSpan = document.createElement('span');
-      timerSpan.className = 'goal-timer';
-      gc.insertBefore(timerSpan, gc.querySelector('.remove-goal'));
-    }
-    attachGoalEvents(gc, i);
+  // Load goals from storage or create 3 empty by default
+  const savedGoals = loadGoalsFromStorage();
+  const goalList = document.querySelector('.goal-list');
+  goalList.innerHTML = '';
+  if (savedGoals.length) {
+    savedGoals.forEach(goal => addGoal(goal));
+  } else {
+    for (let i = 0; i < 3; i++) addGoal();
+  }
+  document.querySelector('.add-goal').addEventListener('click', () => {
+    addGoal();
+    saveGoalsToStorage();
   });
-  document.querySelector('.add-goal').addEventListener('click', addGoal);
   updateProgress();
 });

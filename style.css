@@ -254,3 +254,64 @@ main {
     height: 24px;
   }
 }
+/* Streak/History Section */
+.streak-history {
+  max-width: 660px;
+  margin: 24px auto 0 auto;
+  background: rgba(255,255,255,0.95);
+  border-radius: 10px;
+  padding: 16px 24px 12px 24px;
+  box-shadow: 0 2px 8px rgba(97, 72, 28, 0.07);
+  text-align: center;
+}
+.streak-info {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.calendar {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.calendar-day {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: #eee;
+  color: #888;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1px;
+  border: 1px solid #ddd;
+}
+.calendar-day.done {
+  background: #48a300;
+  color: #fff;
+  border: 1px solid #48a300;
+}
+.calendar-day.today {
+  border: 2px solid #61481c;
+}
+.streak-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2px;
+}
+.streak-count {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffd700;
+  margin-left: 0;
+  margin-top: 2px;
+  display: block;
+}
+@media (max-width: 600px) {
+  .streak-count {
+    font-size: 12px;
+  }
+}
